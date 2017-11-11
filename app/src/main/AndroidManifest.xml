@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".mainPackage.MainActivity"/>
-        <activity android:name=".roundInfoPackage.RoundsInfoListActivity"></activity>
+        <activity android:name=".mainPackage.RoundsResultActivity" />
     </application>
 
 </manifest>

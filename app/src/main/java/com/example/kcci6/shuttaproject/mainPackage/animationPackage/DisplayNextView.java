@@ -1,11 +1,11 @@
-package com.example.kcci6.shuttaproject.mainPackage.cardFlipPackage;
+package com.example.kcci6.shuttaproject.mainPackage.animationPackage;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
 public final class DisplayNextView implements Animation.AnimationListener {
     private boolean mCurrentView;
-    ImageView image1;
-    ImageView image2;
+    private ImageView image1;
+    private ImageView image2;
 
     public DisplayNextView(boolean currentView, ImageView image1, ImageView image2) {
         mCurrentView = currentView;

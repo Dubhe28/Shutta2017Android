@@ -43,20 +43,17 @@ public class RoundInfoAdapter  extends BaseAdapter{
         return view;
     }
 
-    private PlayerResult getPlayerResult(RoundInfo roundInfo, int i){
+    private RoundResultForPlayer getPlayerResult(RoundInfo roundInfo, int i){
 
         int winner = roundInfo.getWinner().ordinal();
         if(winner == 2)
-            return PlayerResult.무승부;
+            return RoundResultForPlayer.무승부;
         else
-            return PlayerResult.values()[Math.abs(winner-i)];
+            return RoundResultForPlayer.values()[Math.abs(winner-i)];
     }
 
-    public boolean getIsTied()
-    {
-        if(_roundInfos.size() == 0)
-            return false;
-        return _roundInfos.get(_roundInfos.size()-1).getWinner() == Winner.None;
+    public boolean getIsTied() {
+        return _roundInfos.size() != 0 && _roundInfos.get(_roundInfos.size() - 1).getWinner() == Winner.None;
     }
 
     public void add(RoundInfo roundInfo){

@@ -1,16 +1,16 @@
 package com.example.kcci6.shuttaproject.mainPackage;
+
 import com.example.kcci6.shuttaproject.playerPackage.Player;
 import com.example.kcci6.shuttaproject.roundInfoPackage.RoundInfo;
-
 import java.util.List;
 
-public class Game {
+class Game {
 
     private static Game instance = new Game();
 
     private Game() {}
 
-    public static Game getInstance() {
+    static Game getInstance() {
         return instance;
     }
 
@@ -28,11 +28,8 @@ public class Game {
         roundInfos.add(new RoundInfo(players, BettingMoneyManager.getInstance().getWinner()));
     }
 
-    private boolean judgeTie(List<RoundInfo> roundInfos){
-        if(roundInfos.size() == 0)
-            return false;
-        else
-            return (roundInfos.get(roundInfos.size()-1)).getWinner() == Winner.None;
+    private boolean judgeTie(List<RoundInfo> roundInfos) {
+        return roundInfos.size() != 0 && (roundInfos.get(roundInfos.size() - 1)).getWinner() == Winner.None;
     }
 
     boolean isRunning(List<Player> players) {

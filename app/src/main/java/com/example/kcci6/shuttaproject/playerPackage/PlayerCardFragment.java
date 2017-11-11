@@ -1,6 +1,4 @@
 package com.example.kcci6.shuttaproject.playerPackage;
-
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,8 +8,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 
 import com.example.kcci6.shuttaproject.R;
-import com.example.kcci6.shuttaproject.mainPackage.cardFlipPackage.CardFlipAnimation;
-import com.example.kcci6.shuttaproject.mainPackage.cardFlipPackage.DisplayNextView;
+import com.example.kcci6.shuttaproject.mainPackage.animationPackage.ImageFlipAnimation;
+import com.example.kcci6.shuttaproject.mainPackage.animationPackage.DisplayNextView;
 
 public class PlayerCardFragment extends Fragment {
 
@@ -59,8 +57,8 @@ public class PlayerCardFragment extends Fragment {
 
 // Create a new 3D rotation with the supplied parameter
 // The animation listener is used to trigger the next animation
-        final CardFlipAnimation rotation =
-                new CardFlipAnimation(start, end, centerX, centerY);
+        final ImageFlipAnimation rotation =
+                new ImageFlipAnimation(start, end, centerX, centerY);
         rotation.setDuration(500);
         rotation.setFillAfter(true);
         rotation.setInterpolator(new AccelerateInterpolator());

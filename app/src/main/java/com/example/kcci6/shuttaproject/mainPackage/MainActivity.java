@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.kcci6.shuttaproject.playerPackage.PlayerCardFragment;
 import com.example.kcci6.shuttaproject.R;
 import com.example.kcci6.shuttaproject.cardPackage.Deck;
 import com.example.kcci6.shuttaproject.playerPackage.*;
@@ -16,11 +17,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.kcci6.shuttaproject.mainPackage.StartMenuActivity.PLAY_OPTION2;
+
 public class MainActivity extends AppCompatActivity {
     public List<Player> players;
     private ArrayList<RoundInfo> roundInfos = new ArrayList<>();
     private ArrayList<PlayerCardFragment> playerCardFragments = new ArrayList<>();
-    private Intent intentNext;
+    private Intent intent;
+
+    public static final int REQUEST_CODE_SHOW_RESULT = 201;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -28,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // 옵션 화면으로부터 정보를 받아온다.
-        Intent intent = this.getIntent();
+        Intent intent = getIntent();
         int playerInitialMoney = intent.getIntExtra("playerMoney", 0);
-        final boolean playOption = intent.getBooleanExtra("playOption", false); // 자동이면 true, 수동이면 false
 
         // 플레이어와 카드들을 생성한다.
         players = Arrays.asList(new Player(playerInitialMoney), new Player(playerInitialMoney));
@@ -72,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void goToNextActivity() {
-        intentNext = new Intent(getApplicationContext(), RoundsInfoListActivity.class);
-        intentNext.putParcelableArrayListExtra("rounds", roundInfos);
-        startActivity(intentNext);
+        intent = new Intent(getApplicationContext(), RoundsResultActivity.class);
+        intent.putExtra("gameOption", PLAY_OPTION2);
+        intent.putParcelableArrayListExtra("rounds", roundInfos);
+        startActivityForResult(intent, REQUEST_CODE_SHOW_RESULT);
     }
 }

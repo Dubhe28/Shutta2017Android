@@ -1,19 +1,19 @@
-package com.example.kcci6.shuttaproject.mainPackage.cardFlipPackage;
+package com.example.kcci6.shuttaproject.mainPackage.animationPackage;
 
 import android.graphics.Camera;
 import android.graphics.Matrix;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-public class CardFlipAnimation  extends Animation {
+public class ImageFlipAnimation extends Animation {
     private final float mFromDegrees;
     private final float mToDegrees;
     private final float mCenterX;
     private final float mCenterY;
     private Camera mCamera;
 
-    public CardFlipAnimation(float fromDegrees, float toDegrees,
-                           float centerX, float centerY) {
+    public ImageFlipAnimation(float fromDegrees, float toDegrees,
+                              float centerX, float centerY) {
         mFromDegrees = fromDegrees;
         mToDegrees = toDegrees;
         mCenterX = centerX;
