@@ -43,6 +43,60 @@ public class MainActivity extends AppCompatActivity {
         players = Arrays.asList(new Player(playerInitialMoney), new Player(playerInitialMoney));
         Deck.getInstance().makeCards(this);
 
+        setFragmentsId();
+
+        setPlayerCardsOnClickListener();
+    }
+
+    private void setPlayerCardsOnClickListener() {
+        for (int i = 0; i < 4; i++) {
+            playerCardFragments.get(i).getImvCardBack().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeStatus();
+                    if(clickEnabled) {
+                        Game.getInstance().playGame(roundInfoList, players);
+
+                        rotateCards();
+
+                        Dealer.getInstance().returnCardPairsToDeck(players);
+                        if (!Game.getInstance().isRunning(players))
+                            goToNextActivity();
+                        else {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < 4; i++) {
+                                        playerCardFragments.get(i).rotate();
+                                    }
+                                }
+                            }, 3000);
+
+                            setPlayerInfoTxts();
+                            showDialog();
+                            changeStatus();
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    private void setPlayerInfoTxts() {
+        for (int j = 0; j < 2; j++) {
+            playerInfoFragments.get(j).setTxvPlayerInfo(roundInfoList.get(roundInfoList.size()-1).getWinner(),
+                    roundInfoList.get(roundInfoList.size()-1).getPlayersMoney());
+        }
+    }
+
+    private void rotateCards() {
+        for (int i = 0; i < 4; i++) {
+            playerCardFragments.get(i).setImv(players.get(i / 2).getCardPair().getCardImageIds().get(i % 2));
+            playerCardFragments.get(i).rotate();
+        }
+    }
+
+    private void setFragmentsId() {
         for (int i = 1; i < 3; i++) {
             for (int j = 1; j < 3; j++) {
                 playerCardFragments.add((PlayerCardFragment) getSupportFragmentManager().findFragmentById(
@@ -52,43 +106,8 @@ public class MainActivity extends AppCompatActivity {
                     getResources().getIdentifier("frgPlayerInfo" + i , "id", "com.example.kcci6.shuttaproject")));
             playerInfoFragments.get(i-1).setTxvPlayerName(i-1);
         }
-        for (int i = 0; i < 4; i++) {
-            playerCardFragments.get(i).getImvCardBack().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    changeStatus();
-                    if(clickEnabled) {
-                        Game.getInstance().playGame(roundInfoList, players);
-
-                        for (int i = 0; i < 4; i++) {
-                            playerCardFragments.get(i).setImv(players.get(i / 2).getCardPair().getCardImageIds().get(i % 2));
-                            playerCardFragments.get(i).onClickView();
-                        }
-                        Dealer.getInstance().returnCardPairsToDeck(players);
-                        if (!Game.getInstance().isRunning(players))
-                            goToNextActivity();
-                        else {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    for (int i = 0; i < 4; i++) {
-                                        playerCardFragments.get(i).onClickView();
-                                    }
-                                }
-                            }, 3000);
-
-                            for (int j = 0; j < 2; j++) {
-                                playerInfoFragments.get(j).setTxvPlayerInfo(roundInfoList.get(roundInfoList.size()-1).getWinner(),
-                                        roundInfoList.get(roundInfoList.size()-1).getPlayersMoney());
-                            }
-                            showDialog();
-                            changeStatus();
-                        }
-                    }
-                }
-            });
-        }
     }
+
     private void changeStatus()
     {
         clickEnabled = !clickEnabled;

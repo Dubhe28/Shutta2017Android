@@ -18,7 +18,6 @@ public class PlayerCardFragment extends Fragment {
     private boolean isFirstImage = true;
 
     public PlayerCardFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -32,7 +31,7 @@ public class PlayerCardFragment extends Fragment {
         return viewGroup;
     }
 
-    public void onClickView() {
+    public void rotate() {
         if (isFirstImage)
             applyRotation(0, 90);
         else

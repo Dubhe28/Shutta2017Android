@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.kcci6.shuttaproject.R;
 import com.example.kcci6.shuttaproject.mainPackage.Winner;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayerInfoFragment extends Fragment {
@@ -19,9 +20,7 @@ public class PlayerInfoFragment extends Fragment {
     private TextView txvPlayerName;
 
     private int playerType;
-    private int winCounts = 0;
-    private int loseCounts = 0;
-    private int tieCounts = 0;
+    private List<Integer> resultCounts;
 
     public PlayerInfoFragment() {
     }
@@ -32,6 +31,7 @@ public class PlayerInfoFragment extends Fragment {
         View viewGroup = inflater.inflate(R.layout.fragment_player_info, container, true);
         txvPlayerName = viewGroup.findViewById(R.id.txvPlayerName);
         txvPlayerInfo = viewGroup.findViewById(R.id.txvPlayerInfo);
+        resultCounts = Arrays.asList(0, 0, 0);
         return viewGroup;
     }
 
@@ -47,19 +47,17 @@ public class PlayerInfoFragment extends Fragment {
     public void setTxvPlayerInfo(Winner winner, List<Integer> playersMoney){
 
         setCounts(winner);
-        String str = winCounts + " 승 " +  loseCounts +" 패 / "+ tieCounts +" 무\n남은 금액: "
-                + playersMoney.get(playerType) + "원";
-        txvPlayerInfo.setText(str);
+        txvPlayerInfo.setText(getPlayerInfoStr(playersMoney));
     }
 
     private void setCounts(Winner winner){
 
         if(playerType == convertWinnerToInt(winner))
-            winCounts++;
+            resultCounts.set(0, resultCounts.get(0)+1); // when player wins
         else if (convertWinnerToInt(winner) == 2)
-            tieCounts++;
+            resultCounts.set(2, resultCounts.get(2)+1); // when players ties
         else
-            loseCounts++;
+            resultCounts.set(1, resultCounts.get(1)+1); // when player loses
 
     }
 
@@ -70,5 +68,11 @@ public class PlayerInfoFragment extends Fragment {
             return 1;
         else
             return 2;
+    }
+
+    private String getPlayerInfoStr(List<Integer> playersMoney){
+
+        return resultCounts.get(0) + " 승 " +  resultCounts.get(1) +" 패 / "+ resultCounts.get(2) +" 무\n남은 금액: "
+                + playersMoney.get(playerType) + "원";
     }
 }

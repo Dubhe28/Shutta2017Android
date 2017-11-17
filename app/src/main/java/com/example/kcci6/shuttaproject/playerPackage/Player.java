@@ -9,11 +9,9 @@ public class Player{
 
     //region CardPair cardPair
     private CardPair cardPair;
-
     public CardPair getCardPair() {
         return cardPair;
     }
-
     public void setCardPair(CardPair cardPair) {
         this.cardPair = cardPair;
     }

@@ -9,6 +9,7 @@ import java.util.Stack;
 public abstract class CardPair implements Comparable<CardPair>{
 
     private Stack<Card> _cards;
+
     // region Jokbo _score
     private Jokbo _score;
     public Jokbo getScore() {
@@ -26,9 +27,6 @@ public abstract class CardPair implements Comparable<CardPair>{
         ScoreCalculator.getInstance().setCardScore(this);
     }
 
-    Card getFirstCard() { return _cards.get(0); }
-    Card getSecondCard() { return _cards.get(1); }
-
     public List<Integer> getCardImageIds()
     {
         return Arrays.asList(getFirstCard().getImgId(), getSecondCard().getImgId());
@@ -38,6 +36,10 @@ public abstract class CardPair implements Comparable<CardPair>{
     {
         return _cards.pop();
     }
+
+    Card getFirstCard() { return _cards.get(0); }
+
+    Card getSecondCard() { return _cards.get(1); }
 
     @Override
     public int compareTo(CardPair o) {

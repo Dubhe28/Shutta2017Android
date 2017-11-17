@@ -3,21 +3,20 @@ package com.example.kcci6.shuttaproject.roundInfoPackage;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import com.example.kcci6.shuttaproject.mainPackage.Winner;
 
 import java.util.ArrayList;
 
 public class RoundInfoAdapter  extends BaseAdapter{
-    private ArrayList<RoundInfo> _roundInfos = new ArrayList<>();
+    private ArrayList<RoundInfo> _roundInfoList = new ArrayList<>();
 
     @Override
     public int getCount() {
-        return _roundInfos.size();
+        return _roundInfoList.size();
     }
 
     @Override
     public RoundInfo getItem(int position) {
-        return _roundInfos.get(position);
+        return _roundInfoList.get(position);
     }
 
     @Override
@@ -27,7 +26,7 @@ public class RoundInfoAdapter  extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        RoundInfo roundInfo = _roundInfos.get(position);
+        RoundInfo roundInfo = _roundInfoList.get(position);
         RoundInfoView view = new RoundInfoView(parent.getContext());
 
         for (int i = 0; i < 4; i++)
@@ -43,21 +42,17 @@ public class RoundInfoAdapter  extends BaseAdapter{
         return view;
     }
 
-    private RoundResultForPlayer getPlayerResult(RoundInfo roundInfo, int i){
+    private RoundPlayerResult getPlayerResult(RoundInfo roundInfo, int i){
 
         int winner = roundInfo.getWinner().ordinal();
         if(winner == 2)
-            return RoundResultForPlayer.무승부;
+            return RoundPlayerResult.무승부;
         else
-            return RoundResultForPlayer.values()[Math.abs(winner-i)];
-    }
-
-    public boolean getIsTied() {
-        return _roundInfos.size() != 0 && _roundInfos.get(_roundInfos.size() - 1).getWinner() == Winner.None;
+            return RoundPlayerResult.values()[Math.abs(winner-i)];
     }
 
     public void add(RoundInfo roundInfo){
-        _roundInfos.add(roundInfo);
+        _roundInfoList.add(roundInfo);
     }
 }
 

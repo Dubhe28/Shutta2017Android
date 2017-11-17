@@ -14,11 +14,14 @@ class BettingMoneyManager {
     }
     //endregion
 
+    private int _bettingMoney = STAT_BETTING_MONEY;
+
+    // region static int STAT_BETTING_MONEY
     private static int STAT_BETTING_MONEY;
-    public void setStatBettingMoney(int statBettingMoney) {
+    void setStaticBettingMoney(int statBettingMoney) {
         STAT_BETTING_MONEY = 2 * statBettingMoney;
     }
-    private int _bettingMoney = STAT_BETTING_MONEY;
+    // endregion
 
     // region Winner _winner
     private Winner _winner;
@@ -34,8 +37,6 @@ class BettingMoneyManager {
     Winner getWinner(){ return _winner;}
     // endregion
 
-
-
     // 각각의 플레이어의 소지금에서 배팅 금액 빼기
     void betMoney(List<Player> players, boolean isTied){
         judgeBettingMoney(isTied);
@@ -44,6 +45,7 @@ class BettingMoneyManager {
             player.setMoney(player.getMoney()-_bettingMoney/2);
         }
     }
+
     // 전 판이 무승부인 경우
     private void judgeBettingMoney(boolean tie){
         if(tie)
@@ -66,6 +68,4 @@ class BettingMoneyManager {
             p2.setMoney(p2.getMoney()+_bettingMoney/2);
         }
     }
-
-
 }
