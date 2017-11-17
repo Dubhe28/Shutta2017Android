@@ -1,11 +1,12 @@
 package com.example.kcci6.shuttaproject.mainPackage;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.kcci6.shuttaproject.playerPackage.PlayerCardFragment;
 import com.example.kcci6.shuttaproject.R;
@@ -20,12 +21,14 @@ import java.util.List;
 import static com.example.kcci6.shuttaproject.mainPackage.StartMenuActivity.PLAY_OPTION2;
 
 public class MainActivity extends AppCompatActivity {
-    public List<Player> players;
-    private ArrayList<RoundInfo> roundInfos = new ArrayList<>();
+    private List<Player> players;
+    private ArrayList<RoundInfo> roundInfoList = new ArrayList<>();
     private ArrayList<PlayerCardFragment> playerCardFragments = new ArrayList<>();
+    private ArrayList<PlayerInfoFragment> playerInfoFragments = new ArrayList<>();
     private Intent intent;
+    private boolean clickEnabled = false;
 
-    public static final int REQUEST_CODE_SHOW_RESULT = 201;
+    private static final int REQUEST_CODE_SHOW_RESULT = 201;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -40,45 +43,85 @@ public class MainActivity extends AppCompatActivity {
         players = Arrays.asList(new Player(playerInitialMoney), new Player(playerInitialMoney));
         Deck.getInstance().makeCards(this);
 
-        for (int i = 1; i < 3; i++)
+        for (int i = 1; i < 3; i++) {
             for (int j = 1; j < 3; j++) {
                 playerCardFragments.add((PlayerCardFragment) getSupportFragmentManager().findFragmentById(
                         getResources().getIdentifier("frgPlayer" + i + "Card" + j, "id", "com.example.kcci6.shuttaproject")));
             }
-
-
-            ImageView imageViewBack = findViewById(R.id.imvCardBack);
-            imageViewBack.setOnClickListener(new View.OnClickListener() {
+            playerInfoFragments.add((PlayerInfoFragment) getSupportFragmentManager().findFragmentById(
+                    getResources().getIdentifier("frgPlayerInfo" + i , "id", "com.example.kcci6.shuttaproject")));
+            playerInfoFragments.get(i-1).setTxvPlayerName(i-1);
+        }
+        for (int i = 0; i < 4; i++) {
+            playerCardFragments.get(i).getImvCardBack().setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(View view) {
+                    changeStatus();
+                    if(clickEnabled) {
+                        Game.getInstance().playGame(roundInfoList, players);
 
-                    Game.getInstance().playGame(roundInfos, players);
-                    for (int i = 0; i < 4; i++) {
-                        playerCardFragments.get(i).setImv(players.get(i / 2).getCardPair().getCardImageIds().get(i % 2));
-                    }
+                        for (int i = 0; i < 4; i++) {
+                            playerCardFragments.get(i).setImv(players.get(i / 2).getCardPair().getCardImageIds().get(i % 2));
+                            playerCardFragments.get(i).onClickView();
+                        }
+                        Dealer.getInstance().returnCardPairsToDeck(players);
+                        if (!Game.getInstance().isRunning(players))
+                            goToNextActivity();
+                        else {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    for (int i = 0; i < 4; i++) {
+                                        playerCardFragments.get(i).onClickView();
+                                    }
+                                }
+                            }, 3000);
 
-                    // 카드를 되돌린다.
-                    Dealer.getInstance().returnCardPairsToDeck(players);
-
-                    if(!Game.getInstance().isRunning(players))
-                    {
-                        goToNextActivity();
-                    }
-                    else
-                    {
-                        // 한 라운드의 결과가 화면에 Toast로 출력된다.(이후 팝업으로 바꾸기)
-                        Toast.makeText(getApplicationContext(), roundInfos.get(roundInfos.size() - 1).getRoundInfoStr(), Toast.LENGTH_SHORT).show();
+                            for (int j = 0; j < 2; j++) {
+                                playerInfoFragments.get(j).setTxvPlayerInfo(roundInfoList.get(roundInfoList.size()-1).getWinner(),
+                                        roundInfoList.get(roundInfoList.size()-1).getPlayersMoney());
+                            }
+                            showDialog();
+                            changeStatus();
+                        }
                     }
                 }
             });
         }
-        // 3초 후에 토스트가 뜬다.
-
+    }
+    private void changeStatus()
+    {
+        clickEnabled = !clickEnabled;
+    }
 
     private void goToNextActivity() {
         intent = new Intent(getApplicationContext(), RoundsResultActivity.class);
-        intent.putExtra("gameOption", PLAY_OPTION2);
-        intent.putParcelableArrayListExtra("rounds", roundInfos);
+        intent.putExtra("playOption", PLAY_OPTION2);
+        intent.putParcelableArrayListExtra("rounds", roundInfoList);
         startActivityForResult(intent, REQUEST_CODE_SHOW_RESULT);
+    }
+
+    private void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(roundInfoList.get(roundInfoList.size()-1).getRoundInfoStr())
+                .setCancelable(false).setPositiveButton("계속",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                })
+                .setNegativeButton("종료",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        intent = new Intent(getApplicationContext(), RoundsResultActivity.class);
+                        intent.putExtra("gameOption", PLAY_OPTION2);
+                        intent.putParcelableArrayListExtra("rounds", roundInfoList);
+                        startActivityForResult(intent, REQUEST_CODE_SHOW_RESULT);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        // Title for AlertDialog
+        alert.setTitle("[ Round Result ]");
+        alert.show();
     }
 }

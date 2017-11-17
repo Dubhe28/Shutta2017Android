@@ -16,15 +16,15 @@ import java.util.List;
 
 public class StartMenuActivity extends AppCompatActivity {
 
-    Button btnStartMenu;
-    Spinner spinnerPlayerMoney;
-    Spinner spinnerBettingMoney;
-    RadioButton radioBtnPlayOption;
+    private Button btnStartMenu;
+    private Spinner spinnerPlayerMoney;
+    private Spinner spinnerBettingMoney;
+    private RadioButton radioBtnPlayOption;
 
-    public static final int REQUEST_CODE_OPTION1 = 101;
-    public static final int REQUEST_CODE_OPTION2 = 102;
-    public static final boolean PLAY_OPTION1 = true;
-    public static final boolean PLAY_OPTION2 = false;
+    private static final int REQUEST_CODE_OPTION1 = 101;
+    private static final int REQUEST_CODE_OPTION2 = 102;
+    private static final boolean PLAY_OPTION1 = true;
+    static final boolean PLAY_OPTION2 = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class StartMenuActivity extends AppCompatActivity {
 
                 if(option) { // 옵션이 자동인 경우
                     Intent intent = new Intent(getApplicationContext(), RoundsResultActivity.class);
-                    intent.putExtra("gameOption", PLAY_OPTION1);
+                    intent.putExtra("playOption", PLAY_OPTION1);
                     intent.putExtra("playerMoney", Integer.parseInt(spinnerPlayerMoney.getSelectedItem().toString()));
                     startActivityForResult(intent, REQUEST_CODE_OPTION1);
                 }

@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,10 +26,15 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="4dp"
                 android:layout_weight="1"
-                android:textSize="22sp"
+                android:text="1R"
+                android:textAlignment="textStart"
+                android:textSize="19sp"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="8dp"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
         <LinearLayout

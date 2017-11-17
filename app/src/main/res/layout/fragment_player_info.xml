@@ -1,25 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.kcci6.shuttaproject.playerPackage.PlayerInfoFragment">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="320dp"
+        tools:ignore="MissingConstraints">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/txvPlayerName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Player" />
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text=" Player A:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
+            android:id="@+id/txvPlayerInfo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:text="_승  _패  _무     남은금액:  1000원" />
-    </LinearLayout>
-</FrameLayout>
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center_horizontal"
+            android:text="0 승 0 패 / 0 무\n남은 금액:  1000원"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvPlayerName" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>

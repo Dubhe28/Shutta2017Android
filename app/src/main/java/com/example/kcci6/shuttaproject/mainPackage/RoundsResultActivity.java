@@ -18,10 +18,10 @@ import java.util.List;
 
 public class RoundsResultActivity extends AppCompatActivity {
 
-    TextView txvGameResult;
-    ArrayList<RoundInfo> roundInfos = new ArrayList<>();
-    RoundInfoAdapter adapter = new RoundInfoAdapter();
-    ListView lsvRounds;
+    private TextView txvGameResult;
+    private ArrayList<RoundInfo> roundInfos = new ArrayList<>();
+    private RoundInfoAdapter adapter = new RoundInfoAdapter();
+    private ListView lsvRounds;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -30,7 +30,8 @@ public class RoundsResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rounds_info_list);
 
         Intent intent = getIntent();
-        boolean playOption = intent.getBooleanExtra("playOption", true); // 자동이면 true, 수동이면 false
+        Bundle bundle = getIntent().getExtras();
+        boolean playOption = bundle.getBoolean("playOption"); // 자동이면 true, 수동이면 false
 
         if(playOption) // 플레이옵션이 자동인 경우
         {
@@ -52,6 +53,8 @@ public class RoundsResultActivity extends AppCompatActivity {
             roundInfos = getIntent().getParcelableArrayListExtra("rounds");
         }
 
+        List<Integer> gameStatistics = getStatistics();
+
         for (RoundInfo roundInfo : roundInfos) {
             adapter.add(roundInfo);
         }
@@ -60,6 +63,34 @@ public class RoundsResultActivity extends AppCompatActivity {
         lsvRounds.setAdapter(adapter);
 
         txvGameResult = findViewById(R.id.txvGameResult);
-        txvGameResult.setText("Final Winner: " + roundInfos.get(roundInfos.size()-1).getWinner());
+        txvGameResult.setText("" + getFinalWinner() + " 님 이 최종 승리하셨습니다! [ 플레이 수: " + roundInfos.size() + " ]\nPlayerA 님의 승률: "
+                + gameStatistics.get(0) + "% / PlayerB 님의 승률: " +gameStatistics.get(1) + "%\n무승부:" + gameStatistics.get(2) + "%");
+    }
+
+    private Winner getFinalWinner(){
+        List<Integer> playersMoney = roundInfos.get(roundInfos.size()-1).getPlayersMoney();
+        if(playersMoney.get(0) > playersMoney.get(1))
+            return Winner.PlayerA;
+        else if (playersMoney.get(0) < playersMoney.get(1))
+            return Winner.PlayerB;
+        else
+            return Winner.None;
+    }
+
+    private List<Integer> getStatistics(){
+        List<Integer> statisticsList = Arrays.asList(0, 0, 0);
+        for (RoundInfo roundInfo :
+                roundInfos) {
+            if (roundInfo.getWinner() == Winner.PlayerA)
+                statisticsList.set(0, statisticsList.get(0) + 1);
+            else if (roundInfo.getWinner() == Winner.PlayerB)
+                statisticsList.set(1, statisticsList.get(1) + 1);
+        }
+
+        for(int i = 0;i < 2;i++)
+            statisticsList.set(i, (int)((double)statisticsList.get(i)/roundInfos.size()*100));
+
+        statisticsList.set(2, 100-statisticsList.get(0)-statisticsList.get(1));
+        return statisticsList;
     }
 }

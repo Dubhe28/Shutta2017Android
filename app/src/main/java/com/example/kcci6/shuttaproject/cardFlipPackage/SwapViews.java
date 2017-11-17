@@ -1,4 +1,4 @@
-package com.example.kcci6.shuttaproject.mainPackage.animationPackage;
+package com.example.kcci6.shuttaproject.cardFlipPackage;
 
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;

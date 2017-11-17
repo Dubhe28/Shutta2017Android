@@ -33,7 +33,7 @@ public class RoundInfoAdapter  extends BaseAdapter{
         for (int i = 0; i < 4; i++)
             view.setImvPlayerCards(i, roundInfo.getPlayersCardImageIds().get(i));
 
-        view.setTextViews(0, String.valueOf(position+1)+"\n번째\n 판");
+        view.setTextViews(0, String.valueOf(position+1)+"R");
 
         for (int i = 0; i < 2; i++) {
             view.setTextViews(3*i+1, getPlayerResult(roundInfo, i).toString());

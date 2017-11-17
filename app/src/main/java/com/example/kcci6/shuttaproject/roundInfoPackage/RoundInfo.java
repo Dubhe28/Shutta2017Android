@@ -18,14 +18,14 @@ public class RoundInfo implements Parcelable {
         _winner = winner;
     }
 
-    public RoundInfo(Parcel in) {
+    private RoundInfo(Parcel in) {
         readFromParcel(in);
     }
 
     // region List<Jokbo> _playersScore
     private List<Jokbo> _playersScore;
 
-    public void setPlayersScore(List<Player> players)
+    private void setPlayersScore(List<Player> players)
     {
         _playersScore = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -33,7 +33,7 @@ public class RoundInfo implements Parcelable {
         }
     }
 
-    public List<Jokbo> getPlayerScores()
+    List<Jokbo> getPlayerScores()
     {
         return _playersScore;
     }
@@ -41,7 +41,7 @@ public class RoundInfo implements Parcelable {
 
     // region List<Integer> _playersMoney
     private List<Integer> _playersMoney;
-    public void setPlayersMoney(List<Player> players) {
+    private void setPlayersMoney(List<Player> players) {
         _playersMoney = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             _playersMoney.add(players.get(i).getMoney());
@@ -55,7 +55,7 @@ public class RoundInfo implements Parcelable {
     // region List<Integer> _playersCardImageIds
     private List<Integer> _playersCardImageIds;
 
-    public void setPlayersCardImageIds(List<Player> players)
+    private void setPlayersCardImageIds(List<Player> players)
     {
         _playersCardImageIds = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
@@ -64,7 +64,7 @@ public class RoundInfo implements Parcelable {
             }
         }
     }
-    public List<Integer> getPlayersCardImageIds()
+    List<Integer> getPlayersCardImageIds()
     {
         return _playersCardImageIds;
     }
@@ -124,8 +124,7 @@ public class RoundInfo implements Parcelable {
     };
 
     public String getRoundInfoStr() {
-        return "The Winner is "+_winner+", Remains: "
-                + _playersMoney.get(0) +"원 , "+_playersMoney.get(1)+"원 "
-                + _playersScore.get(0)+" "+_playersScore.get(1);
+        return "The Winner is "+_winner+".\n"
+                + "Player A 의 패: "+ _playersScore.get(0)+"\nPlayer B 의 패: "+_playersScore.get(1);
     }
 }
