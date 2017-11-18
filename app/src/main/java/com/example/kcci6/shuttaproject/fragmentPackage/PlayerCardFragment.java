@@ -1,4 +1,4 @@
-package com.example.kcci6.shuttaproject.playerPackage;
+package com.example.kcci6.shuttaproject.fragmentPackage;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;

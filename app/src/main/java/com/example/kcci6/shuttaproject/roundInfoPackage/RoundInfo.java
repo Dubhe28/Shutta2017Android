@@ -2,8 +2,9 @@ package com.example.kcci6.shuttaproject.roundInfoPackage;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.example.kcci6.shuttaproject.gamePackage.Winner;
 import com.example.kcci6.shuttaproject.cardPackage.cardPairPackage.Jokbo;
-import com.example.kcci6.shuttaproject.mainPackage.Winner;
 import com.example.kcci6.shuttaproject.playerPackage.Player;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class RoundInfo implements Parcelable {
     // endregion
 
     //region Winner _winner
-    private Winner _winner; // _winner 변수는 이번 라운드에서 누가 이겼는지를 열거타입으로 저장한다.
+    private Winner _winner;
     public Winner getWinner() {
         return _winner;
     }   // getter

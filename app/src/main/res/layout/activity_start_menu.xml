@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.kcci6.shuttaproject.mainPackage.MainActivity">
+    tools:context="com.example.kcci6.shuttaproject.gamePackage.MainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

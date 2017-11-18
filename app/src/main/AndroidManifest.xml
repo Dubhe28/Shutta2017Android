@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mainPackage.StartMenuActivity">
+        <activity android:name=".gamePackage.StartMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mainPackage.MainActivity"/>
-        <activity android:name=".mainPackage.RoundsResultActivity" />
+        <activity android:name=".gamePackage.MainActivity"/>
+        <activity android:name=".gamePackage.RoundsResultActivity" />
     </application>
 
 </manifest>

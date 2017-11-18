@@ -1,5 +1,4 @@
-package com.example.kcci6.shuttaproject.playerPackage;
-
+package com.example.kcci6.shuttaproject.fragmentPackage;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.kcci6.shuttaproject.R;
-import com.example.kcci6.shuttaproject.mainPackage.Winner;
+import com.example.kcci6.shuttaproject.gamePackage.Winner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +46,11 @@ public class PlayerInfoFragment extends Fragment {
     public void setTxvPlayerInfo(Winner winner, List<Integer> playersMoney){
 
         setCounts(winner);
+        txvPlayerInfo.setText(getPlayerInfoStr(playersMoney));
+    }
+
+    public void initTxvPlayerInfo(List<Integer> playersMoney){
+
         txvPlayerInfo.setText(getPlayerInfoStr(playersMoney));
     }
 

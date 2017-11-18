@@ -1,4 +1,4 @@
-package com.example.kcci6.shuttaproject.mainPackage;
+package com.example.kcci6.shuttaproject.gamePackage;
 
 import com.example.kcci6.shuttaproject.playerPackage.Player;
 import com.example.kcci6.shuttaproject.roundInfoPackage.RoundInfo;
@@ -6,13 +6,13 @@ import java.util.List;
 
 class Game {
 
+    // region class Game declared as a singleton
     private static Game instance = new Game();
-
     private Game() {}
-
     static Game getInstance() {
         return instance;
     }
+    // endregion
 
     void playGame(List<RoundInfo> roundInfos, List<Player> players) {
         boolean isLastGameTied = judgeTie(roundInfos);

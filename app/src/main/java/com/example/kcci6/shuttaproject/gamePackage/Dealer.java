@@ -1,9 +1,7 @@
-package com.example.kcci6.shuttaproject.mainPackage;
+package com.example.kcci6.shuttaproject.gamePackage;
 
 import com.example.kcci6.shuttaproject.cardPackage.Deck;
-import com.example.kcci6.shuttaproject.cardPackage.cardPairPackage.CardPair;
-import com.example.kcci6.shuttaproject.cardPackage.cardPairPackage.OriginalCardPair;
-import com.example.kcci6.shuttaproject.cardPackage.cardPairPackage.TieCardPair;
+import com.example.kcci6.shuttaproject.cardPackage.cardPairPackage.*;
 import com.example.kcci6.shuttaproject.playerPackage.Player;
 
 import java.util.List;
@@ -27,13 +25,12 @@ class Dealer {
             setPlayerCards(players.get(i));
     }
 
-    private void setPlayerCards(Player player)
-    {
+    private void setPlayerCards(Player player) {
         player.setCardPair(getRandCardPair());
     }
 
-    private CardPair getRandCardPair(){
-        if(_isTied)
+    private CardPair getRandCardPair() {
+        if (_isTied)
             return new TieCardPair(Deck.getInstance().getCardFromDeck(), Deck.getInstance().getCardFromDeck());
         else
             return new OriginalCardPair(Deck.getInstance().getCardFromDeck(), Deck.getInstance().getCardFromDeck());
@@ -48,5 +45,4 @@ class Dealer {
         for (int i = 0; i < 2; i++)
             returnCardPair(players.get(i));
     }
-
 }

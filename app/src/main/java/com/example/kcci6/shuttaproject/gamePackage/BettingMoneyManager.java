@@ -1,4 +1,4 @@
-package com.example.kcci6.shuttaproject.mainPackage;
+package com.example.kcci6.shuttaproject.gamePackage;
 
 import com.example.kcci6.shuttaproject.playerPackage.Player;
 

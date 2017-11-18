@@ -1,4 +1,4 @@
-package com.example.kcci6.shuttaproject.mainPackage;
+package com.example.kcci6.shuttaproject.gamePackage;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
